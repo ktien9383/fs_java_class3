@@ -1,0 +1,122 @@
+
+
+
+Procedure-- a block of statements which can perform a task. it is similar like your functions in other languages.
+
+delimiter anysymbol
+
+create procedure procedurename()
+begin
+	statements
+
+enddelimiter
+
+delimiter $$
+create procedure getEmployees()
+Begin
+	select employee_id, first_name, salary 
+	from employees
+	order by salary;
+End$$
+
+delimiter ;
+
+call proceduer
+
+call getEmployees();
+
+
+//declare variables
+
+declare totalsal decimal default 0.0;
+set totalsal =238;
+
+
+//how to declare and use a varibale in a statement
+delimiter $$
+create procedure getTotalSalary()
+begin
+	declare totalsal decimal(10,2) default 0;
+	select sum(salary) into totalsal from employees;
+select totalsal;
+
+end$$
+delimiter ;
+
+call getTotalSalary()
+
+
+
+//parameter-- in, out, inout- list of variables in()
+
+in--input (read only)
+out-- output (write)
+inout-- read/write
+
+
+// display recored of a particular employee 
+delimiter $$
+create procedure getEmployeeInfo(in empid integer)
+begin
+	set empid=89;//error as we can't modify in parameters
+
+	select * from employees where employee_id=empid;
+end $$
+delimiter;
+call getEmployeeInfo(130);
+
+//display no of employees of a particular department
+
+delimiter $$
+create procedure getTotalEmployee(in dept_id integer, out counting int)
+begin
+	select count(employee_id) into counting from employees where deptarment_id=dept_id;
+end$$
+
+delimiter ;
+
+call getTotalEmployee(30, @counting);
+select @counting;
+
+
+delimiter $$
+create procedure getstudentDOB(in p_rollno integer, out p_dob date)
+begin
+	select dob into p_dob from studentdetails where rollno=p_rollno;
+end$$
+
+delimiter ;
+
+call getstudentDOB(3, @p_dob);
+select @p_dob;
+
+
+
+
+
+
+
+//inout example  passing a value and calculate its square
+
+
+delimiter $$
+create procedure squareofnumber(inout num int)
+begin
+	set num=num*num;
+end$$
+delimiter ;
+
+set @num=5;
+call squareofnumber(@num);
+select @num;
+
+
+//remove procedue
+drop procedure 'squrareofnumber';
+
+
+//listing stored procedure
+
+show procedure procedurename;
+
+show procedure squareofnumber

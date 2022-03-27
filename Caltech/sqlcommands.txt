@@ -1,0 +1,84 @@
+
+To create database
+create database cred;
+
+
+to open database
+use cred;
+
+to create table
+ create table StudentDetails(rollno integer primary key,studname varchar(20), dob date, marks decimal);
+
+
+to see structure of table
+mysql> desc studentdetails;
+
+to add primary key
+mysql> alter table studentdetails add primary key(rollno);
+
+to drop a column
+mysql> alter table studentdetails drop column marks;
+
+to modify column
+mysql> alter table studentdetails modify rollno char(4);
+
+rename table
+mysql> rename table studentdetails to studdetails;
+
+delete table completely
+mysql> drop table studdetails;
+
+to see all table names in database
+mysql> show tables;
+
+to check current system date
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2022-03-26 |
++------------+
+1 row in set (0.03 sec)
+
+insert a record
+mysql> insert into studentdetails(rollno,studname,dob,marks) values (1,'Kavish', '2001-05-26', 45.5);
+
+
+mysql> select * from studentdetails;
+
+to set autocommit value
+set autocommit 0
+
+to check autocommit value
+select @@autocommit
+
+
+mysql> update studentdetails set marks=28.7 where rollno=4;
+
+to clear screen
+system cls;
+
+
+mysql> select * from studentdetails where name like 'K%';
+
+
+mysql> select * from studentdetails where year(dob)=2001;
+
+
+
+mysql> select * from studentdetails where year(dob)=2001 and  studname like 'K%';
+
+
+
+mysql> delete from studentdetails where rollno=3;
+
+to remove all records (ddl command)
+mysql> truncate table studentdetails;
+
+
+
+foreign key
+ create table result(rollno int , month varchar(10), marks decimal(5,2));
+
+mysql> alter table result add foreign key(rollno) references studentdetails(rollno);
+

@@ -1,0 +1,1 @@
+Filter- before execution of a request it is checking whether request should be fullfill by server or not
